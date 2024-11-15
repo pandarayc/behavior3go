@@ -1,33 +1,37 @@
 package core
 
 type Tick struct {
-	Tree       *BehaviorTree
-	Debug      interface{}
-	Target     interface{}
-	BlackBoard *BlackBoard
-	openTree   []INode
-	nodeCount  int32
+	tree       *BehaviorTree
+	debug      interface{}
+	target     interface{}
+	blackBoard *BlackBoard
+	_openNodes []INode
+	_nodeCount int32
 }
 
 // EnterNode 进入节点
-func (t *Tick) EnterNode(node INode) {
+func (t *Tick) _enterNode(node INode) {
 	// 计算树节点列表
-	t.nodeCount++
-	t.openTree = append(t.openTree, node)
+	t._nodeCount++
+	t._openNodes = append(t._openNodes, node)
 }
 
-func (t *Tick) OpenNode(node INode) {
+// 开启节点
+func (t *Tick) _openNode(node INode) {
 }
 
-func (t *Tick) TickNode(node INode) {
+// tick 节点
+func (t *Tick) _tickNode(node INode) {
 }
 
-func (t *Tick) CloseNode(node INode) {
+// 关闭节点
+func (t *Tick) _closeNode(node INode) {
 	// 弹出节点
-	t.nodeCount--
-	t.openTree = t.openTree[:t.nodeCount]
+	t._nodeCount--
+	t._openNodes = t._openNodes[:t._nodeCount]
 }
 
-func (t *Tick)ExitNode(node INode) {
+// 推出节点
+func (t *Tick) _exitNode(node INode) {
 
 }

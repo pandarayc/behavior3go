@@ -31,21 +31,85 @@ type INode interface {
 
 // b3 节点信息
 type BaseNode struct {
-	Id          string // uuid
-	Category    int32
-	Name        string // name
-	Title       string
-	Description string
-	Properties  map[string]interface{}
-	Parameters  map[string]interface{}
+	id          string // uuid
+	category    int32
+	name        string // name
+	title       string
+	description string
+	properties  map[string]interface{}
+	parameters  map[string]interface{}
 }
 
 func (node *BaseNode) GetCategory() int32 {
-	return node.Category
+	return node.category
 }
 
-func (node *BaseNode) Execute(tick *Tick) {
+func (node *BaseNode) _execute(tick *Tick) {
+	node._enter(tick)
+	// if (!tick.BlackBoard)
+
 }
 
 func (node *BaseNode) _enter(tick *Tick) {
+	tick._enterNode(node)
+	node.Enter(tick)
+}
+
+func (node *BaseNode) _open(tick *Tick) {
+	node._openNode(tick)
+	node.Open(tick)
+}
+
+/**
+ * Enter method, override this to use. It is called every time a node is
+ * asked to execute, before the tick itself.
+ *
+ * @method enter
+ * @param {Tick} tick A tick instance.
+ **/
+func (node *BaseNode) Enter(tick *Tick) {
+}
+
+/**
+ * Open method, override this to use. It is called only before the tick
+ * callback and only if the not isn't closed.
+ *
+ * Note: a node will be closed if it returned `RUNNING` in the tick.
+ *
+ * @method open
+ * @param {Tick} tick A tick instance.
+ **/
+func (node *BaseNode) Open(tick *Tick) {
+}
+
+/**
+ * Tick method, override this to use. This method must contain the real
+ * execution of node (perform a task, call children, etc.). It is called
+ * every time a node is asked to execute.
+ *
+ * @method tick
+ * @param {Tick} tick A tick instance.
+ **/
+func (node *BaseNode) Tick(tick *Tick) {
+}
+
+/**
+ * Close method, override this to use. This method is called after the tick
+ * callback, and only if the tick return a state different from
+ * `RUNNING`.
+ *
+ * @method close
+ * @param {Tick} tick A tick instance.
+ **/
+func (node *BaseNode) Close(tick *Tick) {
+}
+
+/**
+ * Exit method, override this to use. Called every time in the end of the
+ * execution.
+ *
+ * @method exit
+ * @param {Tick} tick A tick instance.
+ **/
+func (node *BaseNode) Exit(tick *Tick) {
 }
