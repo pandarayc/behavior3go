@@ -44,9 +44,20 @@ func (node *BaseNode) GetCategory() int32 {
 	return node.category
 }
 
-func (node *BaseNode) _execute(tick *Tick) {
+func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
+	// 检查自己是否处于已打开状态 
 	// if (!tick.BlackBoard)
+	{
+		node._enter(tick)
+	}
+
+	status := node._tick(tick)
+	if status != STATUS_RUNNING {
+		node._close(tick)
+	}
+	node._exit(tick)
+	return status
 
 }
 
