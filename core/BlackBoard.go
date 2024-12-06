@@ -1,16 +1,18 @@
 package core
 
-type TreeMemory struct {
-	nodeMemory     memory // 节点数据
-	openNodes      []INode // 节点数据
-	traversalDepth int32
-	traversalCycle int32
-}
-
 // 数据黑板
 type BlackBoard struct {
-	baseMemory memory
+	baseMemory *memory
 	treeMemory map[string]*TreeMemory
+}
+
+// 作为共享信息层处理
+type TreeMemory struct {
+	nodeMemory map[string]*memory // 节点数据
+	openNodes  []INode            // 节点数据
+	*memory
+	traversalDepth int32
+	traversalCycle int32
 }
 
 // 新建黑板数据
@@ -23,16 +25,19 @@ func NewBlackBoard() *BlackBoard {
 	return blackBoard
 }
 
-func (b *BlackBoard) GetMemory(treeId, nodeId string) memory {
+func (b *BlackBoard) getMemory(treeId, nodeId string) *memory {
 	mem := b.baseMemory
-	if treeId != "" {
+	if len(treeId) == 0 {
 		treeMem := b.getTreeMemory(treeId)
-		mem = treeMem.nodeMemory
+		mem = treeMem.memory
+		if nodeId != "" {
+			mem = b.getNodeMemory(treeId, nodeId)
+		}
 	}
-
+	return mem
 }
 
-func (b *BlackBoard) getNodeMemory(mem memory, nodeId string) memory {
+func (b *BlackBoard) getNodeMemory(treeId, nodeId string) *memory {
 
 	return nil
 }
@@ -46,45 +51,90 @@ func (b *BlackBoard) getTreeMemory(treeId string) *TreeMemory {
 	return b.treeMemory[treeId]
 }
 
-// 插入数据
-func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
-	return
-}
-
-// 获取数据
-func (b *BlackBoard) Get(key, treeScope, nodeScope string) memory {
-	mem := b.getMemory(treeScope, nodeScope)
-	return mem[key]
-}
-
 // 树状数据
 func newTreeMemory() *TreeMemory {
 	return &TreeMemory{}
+}
+
+func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
+	mem := b.getMemory(treeScope, nodeScope)
+	if mem != nil {
+		mem.Set(key, value)
+	}
+}
+
+func (b *BlackBoard) GetMemory(treeScope, nodeScope string) *memory {
+	return nil
+}
+
+func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
+	mem := b.GetMemory(treeScope, nodeScope)
+	if mem != nil {
+		return mem.Get(key)
+	}
+	return nil
 }
 
 // ---------------------------
 //  Memory 取值
 // ---------------------------
 
-type memory map[string]interface{}
-
-func newMemory() memory {
-	mem := make(map[string]interface{})
-	return mem
+// 内部数据
+type memory struct {
+	mem map[string]interface{}
 }
 
-func (m *memory) GetString() string {
+func newMemory() *memory {
+	return &memory{
+		mem: make(map[string]interface{}),
+	}
+}
+
+// 自己转换
+func (m *memory) Get(key string) interface{} {
+	return m.mem[key]
+}
+
+func (m *memory) Set(key string, val interface{}) {
+	m.mem[key] = val
+}
+
+func (m *memory) GetString(key string) string {
+	str, ok := m.mem[key]
+	if ok {
+		return str.(string)
+	}
 	return ""
 }
 
-func (m *memory) GetBool() bool {
+func (m *memory) GetBool(key string) bool {
+	val, ok := m.mem[key]
+	if ok {
+		return val.(bool)
+	}
 	return false
 }
 
-func (m *memory) GetInt64() int64 {
+func (m *memory) GetInt32(key string) int32 {
+	val, ok := m.mem[key]
+	if ok {
+		return val.(int32)
+	}
 	return 0
 }
 
-func (m *memory) GetInt32() int32 {
+func (m *memory) GetInt64(key string) int64 {
+	val, ok := m.mem[key]
+	if ok {
+		return val.(int64)
+	}
+	return 0
+}
+
+func (m *memory) GetFloat64(key string) float64 {
+	val, ok := m.mem[key]
+	if ok {
+		return val.(float64)
+	}
 	return 0
 }

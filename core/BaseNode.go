@@ -27,7 +27,10 @@ type INode interface {
 	Open(tick *Tick)
 	Close(tick *Tick)
 	Exit(tick *Tick)
+	Tick(tick *Tick) NodeStatus
 }
+
+var _ INode = &BaseNode{}
 
 // b3 节点信息
 type BaseNode struct {
@@ -46,7 +49,7 @@ func (node *BaseNode) GetCategory() int32 {
 
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
-	// 检查自己是否处于已打开状态 
+	// 检查自己是否处于已打开状态
 	// if (!tick.BlackBoard)
 	{
 		node._enter(tick)
@@ -67,60 +70,40 @@ func (node *BaseNode) _enter(tick *Tick) {
 }
 
 func (node *BaseNode) _open(tick *Tick) {
-	node._openNode(tick)
+	tick._openNode(tick)
+	// 设置open
 	node.Open(tick)
 }
 
-/**
- * Enter method, override this to use. It is called every time a node is
- * asked to execute, before the tick itself.
- *
- * @method enter
- * @param {Tick} tick A tick instance.
- **/
+func (node *BaseNode) _tick(tick *Tick) NodeStatus {
+	tick._tickNode(node)
+	return node.Tick(tick)
+}
+
+func (node *BaseNode) _close(tick *Tick) {
+	tick._closeNode(node)
+	// 设置isopen close
+	node.Close(tick)
+}
+
+func (node *BaseNode) _exit(tick *Tick) {
+	tick._exitNode(node)
+	node.Exit(tick)
+}
+
 func (node *BaseNode) Enter(tick *Tick) {
 }
 
-/**
- * Open method, override this to use. It is called only before the tick
- * callback and only if the not isn't closed.
- *
- * Note: a node will be closed if it returned `RUNNING` in the tick.
- *
- * @method open
- * @param {Tick} tick A tick instance.
- **/
 func (node *BaseNode) Open(tick *Tick) {
 }
 
-/**
- * Tick method, override this to use. This method must contain the real
- * execution of node (perform a task, call children, etc.). It is called
- * every time a node is asked to execute.
- *
- * @method tick
- * @param {Tick} tick A tick instance.
- **/
-func (node *BaseNode) Tick(tick *Tick) {
+func (node *BaseNode) Tick(tick *Tick) NodeStatus {
+	// 默认成功
+	return STATUS_SUCCESS
 }
 
-/**
- * Close method, override this to use. This method is called after the tick
- * callback, and only if the tick return a state different from
- * `RUNNING`.
- *
- * @method close
- * @param {Tick} tick A tick instance.
- **/
 func (node *BaseNode) Close(tick *Tick) {
 }
 
-/**
- * Exit method, override this to use. Called every time in the end of the
- * execution.
- *
- * @method exit
- * @param {Tick} tick A tick instance.
- **/
 func (node *BaseNode) Exit(tick *Tick) {
 }
