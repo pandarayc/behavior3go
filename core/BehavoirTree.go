@@ -1,12 +1,12 @@
 package core
 
 type BehaviorTree struct {
-	id string // uuid
-	title string // treeName
-	description string // 描述
-	properties map[string]interface{}
-	root INode
-	debug interface{}
+	Id string // uuid
+	Title string // treeName
+	Description string // 描述
+	Properties map[string]interface{}
+	Root INode
+	Debug interface{}
 }
 
 

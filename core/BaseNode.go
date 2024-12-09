@@ -23,16 +23,16 @@ package core
  **/
 
 type INode interface {
-	Enter(tick *Tick)
-	Open(tick *Tick)
-	Close(tick *Tick)
-	Exit(tick *Tick)
-	Tick(tick *Tick) NodeStatus
+	OnEnter(tick *Tick)
+	OnOpen(tick *Tick)
+	OnClose(tick *Tick)
+	OnExit(tick *Tick)
+	OnTick(tick *Tick) NodeStatus
 }
 
 var _ INode = &BaseNode{}
 
-// b3 节点信息
+// b3 节点信息 (数据存储载体)
 type BaseNode struct {
 	INode
 	Id          string // uuid
@@ -47,8 +47,7 @@ type BaseNode struct {
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
 	// 检查自己是否处于已打开状态
-	// if (!tick.BlackBoard)
-	{
+	if !tick.BlackBoard.GetMemory(tick.Tree.Id, node.Id).GetBool("isOpen") {
 		node._enter(tick)
 	}
 
@@ -58,49 +57,31 @@ func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	}
 	node._exit(tick)
 	return status
-
 }
 
 func (node *BaseNode) _enter(tick *Tick) {
 	tick._enterNode(node)
-	node.Enter(tick)
+	node.OnEnter(tick)
 }
 
 func (node *BaseNode) _open(tick *Tick) {
 	tick._openNode(node)
 	// 设置open
-	node.Open(tick)
+	node.OnOpen(tick)
 }
 
 func (node *BaseNode) _tick(tick *Tick) NodeStatus {
 	tick._tickNode(node)
-	return node.Tick(tick)
+	return node.OnTick(tick)
 }
 
 func (node *BaseNode) _close(tick *Tick) {
 	tick._closeNode(node)
 	// 设置isopen close
-	node.Close(tick)
+	node.OnClose(tick)
 }
 
 func (node *BaseNode) _exit(tick *Tick) {
 	tick._exitNode(node)
-	node.Exit(tick)
-}
-
-func (node *BaseNode) Enter(tick *Tick) {
-}
-
-func (node *BaseNode) Open(tick *Tick) {
-}
-
-func (node *BaseNode) Tick(tick *Tick) NodeStatus {
-	// 默认成功
-	return STATUS_SUCCESS
-}
-
-func (node *BaseNode) Close(tick *Tick) {
-}
-
-func (node *BaseNode) Exit(tick *Tick) {
+	node.OnExit(tick)
 }
