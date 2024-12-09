@@ -34,17 +34,14 @@ var _ INode = &BaseNode{}
 
 // b3 节点信息
 type BaseNode struct {
-	id          string // uuid
-	category    int32
-	name        string // name
-	title       string
-	description string
-	properties  map[string]interface{}
-	parameters  map[string]interface{}
-}
-
-func (node *BaseNode) GetCategory() int32 {
-	return node.category
+	INode
+	Id          string // uuid
+	Category    NodeCategory
+	Name        string // name
+	Title       string
+	Description string
+	Properties  map[string]interface{}
+	Parameters  map[string]interface{}
 }
 
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
@@ -70,7 +67,7 @@ func (node *BaseNode) _enter(tick *Tick) {
 }
 
 func (node *BaseNode) _open(tick *Tick) {
-	tick._openNode(tick)
+	tick._openNode(node)
 	// 设置open
 	node.Open(tick)
 }

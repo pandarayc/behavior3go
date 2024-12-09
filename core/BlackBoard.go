@@ -6,15 +6,6 @@ type BlackBoard struct {
 	treeMemory map[string]*TreeMemory
 }
 
-// 作为共享信息层处理
-type TreeMemory struct {
-	nodeMemory map[string]*memory // 节点数据
-	openNodes  []INode            // 节点数据
-	*memory
-	traversalDepth int32
-	traversalCycle int32
-}
-
 // 新建黑板数据
 func NewBlackBoard() *BlackBoard {
 	blackBoard := &BlackBoard{
@@ -25,25 +16,8 @@ func NewBlackBoard() *BlackBoard {
 	return blackBoard
 }
 
-func (b *BlackBoard) getMemory(treeId, nodeId string) *memory {
-	mem := b.baseMemory
-	if len(treeId) == 0 {
-		treeMem := b.getTreeMemory(treeId)
-		mem = treeMem.memory
-		if nodeId != "" {
-			mem = b.getNodeMemory(treeId, nodeId)
-		}
-	}
-	return mem
-}
-
-func (b *BlackBoard) getNodeMemory(treeId, nodeId string) *memory {
-
-	return nil
-}
-
 // 获取树节点
-func (b *BlackBoard) getTreeMemory(treeId string) *TreeMemory {
+func (b *BlackBoard) GetTreeMemory(treeId string) *TreeMemory {
 	if b.treeMemory[treeId] == nil {
 		b.treeMemory[treeId] = newTreeMemory()
 	}
@@ -51,20 +25,16 @@ func (b *BlackBoard) getTreeMemory(treeId string) *TreeMemory {
 	return b.treeMemory[treeId]
 }
 
-// 树状数据
-func newTreeMemory() *TreeMemory {
-	return &TreeMemory{}
-}
-
-func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
-	mem := b.getMemory(treeScope, nodeScope)
-	if mem != nil {
-		mem.Set(key, value)
-	}
-}
-
 func (b *BlackBoard) GetMemory(treeScope, nodeScope string) *memory {
-	return nil
+	mem := b.baseMemory
+	if len(treeScope) == 0 {
+		treeMem := b.GetTreeMemory(treeScope)
+		mem = treeMem.memory
+		if nodeScope != "" {
+			mem = treeMem.GetNodeMemory(nodeScope)
+		}
+	}
+	return mem
 }
 
 func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
@@ -73,6 +43,33 @@ func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
 		return mem.Get(key)
 	}
 	return nil
+}
+
+func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
+	mem := b.GetMemory(treeScope, nodeScope)
+	if mem != nil {
+		mem.Set(key, value)
+	}
+}
+
+// 作为共享信息层处理
+type TreeMemory struct {
+	nodeMemory map[string]*memory // 节点数据
+	*memory                       // 树节点数据
+}
+
+// 树状数据
+func newTreeMemory() *TreeMemory {
+	return &TreeMemory{
+		nodeMemory: make(map[string]*memory),
+		memory:     newMemory(),
+	}
+}
+func (tm *TreeMemory) GetNodeMemory(key string) *memory {
+	if tm == nil {
+		return nil
+	}
+	return tm.nodeMemory[key]
 }
 
 // ---------------------------

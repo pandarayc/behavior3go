@@ -14,10 +14,10 @@ func (bt *BehaviorTree) Load() {
 
 }
  
-func (bt *BehaviorTree) dump() {
+func (bt *BehaviorTree) Dump() {
 
 }
 
 func (bt *BehaviorTree) Tick(target interface{}, blackboard *BlackBoard) NodeStatus {
-	return nil 
+	return 0 
 }
