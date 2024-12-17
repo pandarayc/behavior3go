@@ -1,0 +1,159 @@
+{
+    "version": "0.3.0",
+    "scope": "project",
+    "selectedTree": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+    "trees": [
+      {
+        "version": "0.3.0",
+        "scope": "tree",
+        "id": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+        "title": "A behavior tree",
+        "description": "",
+        "root": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+        "properties": {},
+        "nodes": {
+          "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073": {
+            "id": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+            "name": "Priority",
+            "title": "Priority",
+            "description": "",
+            "properties": {},
+            "display": {
+              "x": 60,
+              "y": 60
+            },
+            "children": [
+              "dc4c0850-7504-447f-823a-5605d9c78c0d",
+              "226f0802-4c52-4531-8ea6-69f6ae6f0aff",
+              "503b9577-121a-4326-b1e9-6ffc4d1d4000",
+              "c53f94d3-2b37-4dbe-805a-05ef23b8fb25"
+            ]
+          },
+          "c53f94d3-2b37-4dbe-805a-05ef23b8fb25": {
+            "id": "c53f94d3-2b37-4dbe-805a-05ef23b8fb25",
+            "name": "Repeater",
+            "title": "Repeat <maxLoop>x",
+            "description": "",
+            "properties": {
+              "maxLoop": -1
+            },
+            "display": {
+              "x": -72,
+              "y": 180
+            },
+            "child": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983"
+          },
+          "aa4d51e7-c2a0-4c18-bee0-628b6f08d983": {
+            "id": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983",
+            "name": "Failer",
+            "title": "Failer",
+            "description": "",
+            "properties": {
+              "323": 23
+            },
+            "display": {
+              "x": 132,
+              "y": 204
+            }
+          },
+          "226f0802-4c52-4531-8ea6-69f6ae6f0aff": {
+            "id": "226f0802-4c52-4531-8ea6-69f6ae6f0aff",
+            "name": "550e66f8-306e-46dd-8ed1-16db5e203e62",
+            "title": "sdas",
+            "description": "",
+            "properties": {},
+            "display": {
+              "x": 204,
+              "y": -96
+            }
+          },
+          "503b9577-121a-4326-b1e9-6ffc4d1d4000": {
+            "id": "503b9577-121a-4326-b1e9-6ffc4d1d4000",
+            "name": "xxqqq",
+            "title": "xxxq",
+            "description": "",
+            "properties": {},
+            "display": {
+              "x": 228,
+              "y": 48
+            }
+          },
+          "dc4c0850-7504-447f-823a-5605d9c78c0d": {
+            "id": "dc4c0850-7504-447f-823a-5605d9c78c0d",
+            "name": "550e66f8-306e-46dd-8ed1-16db5e203e62",
+            "title": "sdas3",
+            "description": "",
+            "properties": {},
+            "display": {
+              "x": 168,
+              "y": -204
+            }
+          }
+        },
+        "display": {
+          "camera_x": 540,
+          "camera_y": 383.5,
+          "camera_z": 1,
+          "x": -168,
+          "y": -132
+        }
+      },
+      {
+        "version": "0.3.0",
+        "scope": "tree",
+        "id": "550e66f8-306e-46dd-8ed1-16db5e203e62",
+        "title": "sdas",
+        "description": "earsadsa",
+        "root": "5c77fcdf-ee9d-4c39-8187-c7e55cfe9ec6",
+        "properties": {},
+        "nodes": {
+          "5c77fcdf-ee9d-4c39-8187-c7e55cfe9ec6": {
+            "id": "5c77fcdf-ee9d-4c39-8187-c7e55cfe9ec6",
+            "name": "Failer",
+            "title": "Failer",
+            "description": "",
+            "properties": {},
+            "display": {
+              "x": 204,
+              "y": 0
+            }
+          }
+        },
+        "display": {
+          "camera_x": 539,
+          "camera_y": 383.5,
+          "camera_z": 1,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "version": "0.3.0",
+        "scope": "tree",
+        "id": "f36fa6ae-fa60-4a66-a66f-90ae8abe7485",
+        "title": "443",
+        "description": "11",
+        "root": null,
+        "properties": {},
+        "nodes": {},
+        "display": {
+          "camera_x": 539,
+          "camera_y": 383.5,
+          "camera_z": 1,
+          "x": 0,
+          "y": 0
+        }
+      }
+    ],
+    "custom_nodes": [
+      {
+        "version": "0.3.0",
+        "scope": "node",
+        "name": "xxqqq",
+        "category": "action",
+        "title": "eee",
+        "description": null,
+        "properties": {}
+      }
+    ]
+  }

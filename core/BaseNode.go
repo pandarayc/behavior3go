@@ -1,47 +1,31 @@
 package core
 
-/**
- * The BaseNode class is used as super class to all nodes in BehaviorJS. It
- * comprises all common variables and methods that a node must have to
- * execute.
- *
- * **IMPORTANT:** Do not inherit from this class, use `Composite`,
- * `Decorator`, `Action` or `Condition`, instead.
- *
- * The attributes are specially designed to serialization of the node in a
- * JSON format. In special, the `parameters` attribute can be set into the
- * visual editor (thus, in the JSON file), and it will be used as parameter
- * on the node initialization at `BehaviorTree.load`.
- *
- * BaseNode also provide 5 callback methods, which the node implementations
- * can override. They are `enter`, `open`, `tick`, `close` and `exit`. See
- * their documentation to know more. These callbacks are called inside the
- * `_execute` method, which is called in the tree traversal.
- *
- * @module b3
- * @class BaseNode
- **/
+import "github.com/genet9496/behavior3go/config"
 
+// 外层修改不到Base的方法，只能通过interface方式组合
+// 节点通用方法
 type INode interface {
-	OnEnter(tick *Tick)
-	OnOpen(tick *Tick)
-	OnClose(tick *Tick)
-	OnExit(tick *Tick)
-	OnTick(tick *Tick) NodeStatus
+	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
+	GetId() string
+	GetCategory() NodeCategory
+	GetName() string
+	GetTitle() string
 }
-
-var _ INode = &BaseNode{}
 
 // b3 节点信息 (数据存储载体)
 type BaseNode struct {
-	INode
-	Id          string // uuid
-	Category    NodeCategory
-	Name        string // name
-	Title       string
-	Description string
-	Properties  map[string]interface{}
-	Parameters  map[string]interface{}
+	IWorker            // 为了把外部结构重载方法注入进来使用
+	id          string // uuid
+	category    NodeCategory
+	name        string // name
+	title       string
+	description string
+	properties  map[string]interface{}
+	parameters  map[string]interface{}
+}
+
+func (node *BaseNode) Initialize(cfg *config.NodeCfg) {
+
 }
 
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {

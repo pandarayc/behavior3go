@@ -1,21 +1,10 @@
 package core
 
-
 type Condition struct {
-    BaseNode
+	Worker
 }
 
-func NewCondition(name string, title string, properties map[string]interface{}) *Condition {
-    if name == "" {
-        name = "Condition"
-    }
+func NewCondition(name string, title string, properties map[string]interface{}) interface{} {
 
-    return &Condition{
-        BaseNode: BaseNode{
-            Name:        name,
-            Title:       title,
-            Properties:  properties,
-            Category:    CATEGORY_CONDITION,
-        },
-    }
+	return nil
 }

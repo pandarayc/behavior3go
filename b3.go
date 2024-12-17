@@ -1,9 +1,8 @@
 package behavior3go
 
 
-type b3 struct {}
 
-// 构造行为树实例
-func NewB3() {}
-
-
+// 行为树中心管理 (项目级别)
+type B3 struct {
+	trees map[string]*BehaviorTree
+}
