@@ -5,7 +5,7 @@ type Tick struct {
 	Debug      interface{}
 	Target     interface{}
 	BlackBoard *BlackBoard
-	_openNodes []*Node
+	_openNodes []*BaseNode
 	_nodeCount int32
 }
 

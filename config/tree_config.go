@@ -9,19 +9,19 @@ import (
 
 // 树配置
 type TreeCfg struct {
-	Version    string                 `json:"version"`
-	Scope      string                 `json:"scope"`
-	Id         string                 `json:"id"`
-	Title      string                 `json:"title"`
-	Root       string                 `json:"root"`
-	Properties map[string]interface{} `json:"properties"`
-	Nodes      map[string]*NodeCfg    `json:"nodes"`
-	Children   []string               `json:"children"`
-	Child      string                 `json:"child"`
+	Version     string                 `json:"version"`
+	Scope       string                 `json:"scope"`
+	Id          string                 `json:"id"`
+	Title       string                 `json:"title"`
+	Root        string                 `json:"root"`
+	Properties  map[string]interface{} `json:"properties"`
+	Nodes       map[string]*NodeCfg    `json:"nodes"`
+	Children    []string               `json:"children"`
+	Child       string                 `json:"child"`
+	Description string                 `json:"description"`
 }
 
 func (t *TreeCfg) String() string {
 	str, _ := json.Marshal(t)
 	return string(str)
 }
-

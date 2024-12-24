@@ -10,7 +10,11 @@ type INode interface {
 	GetCategory() NodeCategory
 	GetName() string
 	GetTitle() string
+	GetDescription() string
+	GetProperties() map[string]interface{}
 }
+
+var _ INode = &BaseNode{}
 
 // b3 节点信息 (数据存储载体)
 type BaseNode struct {
@@ -24,14 +28,44 @@ type BaseNode struct {
 	parameters  map[string]interface{}
 }
 
+// Initialize 初始化节点信息
 func (node *BaseNode) Initialize(cfg *config.NodeCfg) {
-
+	node.id = cfg.Id
+	node.name = cfg.Name
+	node.description = cfg.Description
+	node.title = cfg.Title
+	node.properties = cfg.Properties
 }
 
+func (node *BaseNode) GetId() string {
+	return node.id
+}
+
+func (node *BaseNode) GetName() string {
+	return node.name
+}
+
+func (node *BaseNode) GetCategory() NodeCategory {
+	return node.category
+}
+
+func (node *BaseNode) GetTitle() string {
+	return node.title
+}
+
+func (node *BaseNode) GetDescription() string {
+	return node.description
+}
+
+func (node *BaseNode) GetProperties() map[string]interface{} {
+	return node.properties
+}
+
+// _execute 执行节点
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
 	// 检查自己是否处于已打开状态
-	if !tick.BlackBoard.GetMemory(tick.Tree.Id, node.Id).GetBool("isOpen") {
+	if !tick.BlackBoard.GetMemory(tick.Tree.id, node.id).GetBool("isOpen") {
 		node._enter(tick)
 	}
 
@@ -43,28 +77,33 @@ func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	return status
 }
 
+// _enter 进入节点
 func (node *BaseNode) _enter(tick *Tick) {
 	tick._enterNode(node)
 	node.OnEnter(tick)
 }
 
+// _open 打开节点
 func (node *BaseNode) _open(tick *Tick) {
 	tick._openNode(node)
 	// 设置open
 	node.OnOpen(tick)
 }
 
+// _tick 节点运行
 func (node *BaseNode) _tick(tick *Tick) NodeStatus {
 	tick._tickNode(node)
 	return node.OnTick(tick)
 }
 
+// _close 关闭节点
 func (node *BaseNode) _close(tick *Tick) {
 	tick._closeNode(node)
 	// 设置isopen close
 	node.OnClose(tick)
 }
 
+// _exit 节点退出
 func (node *BaseNode) _exit(tick *Tick) {
 	tick._exitNode(node)
 	node.OnExit(tick)

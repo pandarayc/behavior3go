@@ -12,5 +12,4 @@ func TestLoadB3ProjectCfg(t *testing.T) {
 		t.Error("load b3 project cfg failed")
 	}
 	fmt.Printf("cfg: %+v\n", cfg)
-
 }
