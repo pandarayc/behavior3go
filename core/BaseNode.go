@@ -2,9 +2,23 @@ package core
 
 import "github.com/genet9496/behavior3go/config"
 
+
+// 方便修改
+type INodeWrapper interface {
+	_execute(tick *Tick) NodeStatus
+	_enter(tick *Tick)
+	_open(tick *Tick)
+	_tick(tick *Tick) NodeStatus
+	_close(tick *Tick)
+	_exit(tick *Tick)
+}
+
+var _ INodeWrapper = &BaseNode{}
+
 // 外层修改不到Base的方法，只能通过interface方式组合
 // 节点通用方法
 type INode interface {
+	INodeWrapper
 	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
 	GetId() string
 	GetCategory() NodeCategory

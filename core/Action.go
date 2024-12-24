@@ -10,7 +10,7 @@ func NewAction(name string, title string, properties map[string]interface{}) INo
 		name = "Action"
 	}
 
-	return &Node{
+	return &BaseNode{
 		Name:       name,
 		Title:      title,
 		Properties: properties,
