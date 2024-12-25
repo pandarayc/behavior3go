@@ -13,7 +13,7 @@ type Action struct {
 
 var _ IAction = &Action{}
 
-func (node *Action) _ctor() {
+func (node *Action) Ctor() {
 	node.category = CATEGORY_ACTION
 }
 
