@@ -1,10 +1,22 @@
 package core
 
-type Condition struct {
-	Worker
+import "github.com/genet9496/behavior3go/config"
+
+type ICondition interface {
+	INode
 }
 
-func NewCondition(name string, title string, properties map[string]interface{}) interface{} {
+type Condition struct {
+	BaseNode
+	BaseWorker
+}
 
-	return nil
+var _ ICondition = &Condition{}
+
+func (node *Condition) _ctor() {
+	node.category = CATEGORY_CONDITION
+}
+
+func (node *Condition) Initialize(cfg *config.NodeCfg) {
+	node.BaseNode.Initialize(cfg)
 }

@@ -2,7 +2,6 @@ package core
 
 import "github.com/genet9496/behavior3go/config"
 
-
 // 方便修改
 type INodeWrapper interface {
 	_execute(tick *Tick) NodeStatus
@@ -11,6 +10,8 @@ type INodeWrapper interface {
 	_tick(tick *Tick) NodeStatus
 	_close(tick *Tick)
 	_exit(tick *Tick)
+	_ctor()
+	_setWorker(IWorker)
 }
 
 var _ INodeWrapper = &BaseNode{}
@@ -18,7 +19,7 @@ var _ INodeWrapper = &BaseNode{}
 // 外层修改不到Base的方法，只能通过interface方式组合
 // 节点通用方法
 type INode interface {
-	INodeWrapper
+	// INodeWrapper
 	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
 	GetId() string
 	GetCategory() NodeCategory
@@ -39,15 +40,14 @@ type BaseNode struct {
 	title       string
 	description string
 	properties  map[string]interface{}
-	parameters  map[string]interface{}
 }
 
 // Initialize 初始化节点信息
 func (node *BaseNode) Initialize(cfg *config.NodeCfg) {
 	node.id = cfg.Id
 	node.name = cfg.Name
-	node.description = cfg.Description
 	node.title = cfg.Title
+	node.description = cfg.Description
 	node.properties = cfg.Properties
 }
 
@@ -73,6 +73,15 @@ func (node *BaseNode) GetDescription() string {
 
 func (node *BaseNode) GetProperties() map[string]interface{} {
 	return node.properties
+}
+
+// 设置工作函数
+func (node *BaseNode) _setWorker(worker IWorker) {
+	node.IWorker = worker
+}
+
+// _ctor 构造函数
+func (node *BaseNode) _ctor() {
 }
 
 // _execute 执行节点

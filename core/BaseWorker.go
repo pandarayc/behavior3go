@@ -10,22 +10,24 @@ type IWorker interface {
 	OnTick(tick *Tick) NodeStatus
 }
 
-type Worker struct {
+var _ IWorker = &BaseWorker{}
+
+type BaseWorker struct {
 }
 
-func (w *Worker) OnEnter(tick *Tick) {
+func (w *BaseWorker) OnEnter(tick *Tick) {
 }
 
-func (w *Worker) OnOpen(tick *Tick) {
+func (w *BaseWorker) OnOpen(tick *Tick) {
 }
 
-func (w *Worker) OnTick(tick *Tick) NodeStatus {
+func (w *BaseWorker) OnTick(tick *Tick) NodeStatus {
 	// 默认成功
 	return STATUS_SUCCESS
 }
 
-func (w *Worker) OnClose(tick *Tick) {
+func (w *BaseWorker) OnClose(tick *Tick) {
 }
 
-func (w *Worker) OnExit(tick *Tick) {
+func (w *BaseWorker) OnExit(tick *Tick) {
 }

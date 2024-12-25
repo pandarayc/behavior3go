@@ -17,3 +17,4 @@ const (
 	CATEGORY_COMPOSITE NodeCategory = "composite"
 	CATEGORY_CONDITION NodeCategory = "condition"
 )
+
