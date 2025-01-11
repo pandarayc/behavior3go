@@ -1,3 +1,3 @@
-module github.com/genet9496/behavior3go
+module github.com/pandarayc/behavior3go
 
 go 1.21.12

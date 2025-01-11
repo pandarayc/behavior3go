@@ -1,6 +1,6 @@
 package actions
 
-import "github.com/genet9496/behavior3go/core"
+import "github.com/pandarayc/behavior3go/core"
 
 type Runner struct {
 	core.Action

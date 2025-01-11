@@ -1,6 +1,6 @@
 package core
 
-import "github.com/genet9496/behavior3go/config"
+import "github.com/pandarayc/behavior3go/config"
 
 type IAction interface {
 	INode
