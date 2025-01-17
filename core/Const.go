@@ -18,3 +18,10 @@ const (
 	CATEGORY_CONDITION NodeCategory = "condition"
 )
 
+const (
+	PROPERTY_KEY_WAIT_MS                = "milliseconds" // ACTION_WAIT 参数 毫秒
+	PROPERTY_KEY_REPEATER_LOOP          = "maxLoop"      // decorator
+	PROPERTY_KEY_REPEATER_UNTIL_FAILURE = "maxLoop"
+	PROPERTY_KEY_REPEATER_UNTIL_SUCCESS = "maxLoop"
+	PROPERTY_KEY_LIMITER                = "maxLoop"
+)
