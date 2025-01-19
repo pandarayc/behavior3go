@@ -1,5 +1,9 @@
 package core
 
+type IBlackBoard interface {
+	GetMemory(key string, treeScope string, nodeScope string) IMemory
+}
+
 // 数据黑板
 type BlackBoard struct {
 	baseMemory *memory
@@ -37,20 +41,20 @@ func (b *BlackBoard) GetMemory(treeScope, nodeScope string) *memory {
 	return mem
 }
 
-func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
-	mem := b.GetMemory(treeScope, nodeScope)
-	if mem != nil {
-		return mem.Get(key)
-	}
-	return nil
-}
+// func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
+// 	mem := b.GetMemory(treeScope, nodeScope)
+// 	if mem != nil {
+// 		return mem.Get(key)
+// 	}
+// 	return nil
+// }
 
-func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
-	mem := b.GetMemory(treeScope, nodeScope)
-	if mem != nil {
-		mem.Set(key, value)
-	}
-}
+// func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
+// 	mem := b.GetMemory(treeScope, nodeScope)
+// 	if mem != nil {
+// 		mem.Set(key, value)
+// 	}
+// }
 
 // 作为共享信息层处理
 type TreeMemory struct {
@@ -70,68 +74,4 @@ func (tm *TreeMemory) GetNodeMemory(key string) *memory {
 		return nil
 	}
 	return tm.nodeMemory[key]
-}
-
-// ---------------------------
-//  Memory 取值
-// ---------------------------
-
-// 内部数据
-type memory struct {
-	mem map[string]interface{}
-}
-
-func newMemory() *memory {
-	return &memory{
-		mem: make(map[string]interface{}),
-	}
-}
-
-// 自己转换
-func (m *memory) Get(key string) interface{} {
-	return m.mem[key]
-}
-
-func (m *memory) Set(key string, val interface{}) {
-	m.mem[key] = val
-}
-
-func (m *memory) GetString(key string) string {
-	str, ok := m.mem[key]
-	if ok {
-		return str.(string)
-	}
-	return ""
-}
-
-func (m *memory) GetBool(key string) bool {
-	val, ok := m.mem[key]
-	if ok {
-		return val.(bool)
-	}
-	return false
-}
-
-func (m *memory) GetInt32(key string) int32 {
-	val, ok := m.mem[key]
-	if ok {
-		return val.(int32)
-	}
-	return 0
-}
-
-func (m *memory) GetInt64(key string) int64 {
-	val, ok := m.mem[key]
-	if ok {
-		return val.(int64)
-	}
-	return 0
-}
-
-func (m *memory) GetFloat64(key string) float64 {
-	val, ok := m.mem[key]
-	if ok {
-		return val.(float64)
-	}
-	return 0
 }
