@@ -1,13 +1,20 @@
 package core
 
-type BehaviorTree struct {
-	id          string // uuid
-	title       string // treeName
-	description string // 描述
-	properties  map[string]interface{}
-	root        INode
-	debug       interface{}
+import (
+	"github.com/pandarayc/behavior3go/config"
+)
+
+type IBTree interface {
+	config.IBaseConfig
 }
+
+type BehaviorTree struct {
+	*config.NodeCfg
+	root  INode
+	debug interface{}
+}
+
+var _ IBTree = &BehaviorTree{}
 
 func (bt *BehaviorTree) Load() {
 

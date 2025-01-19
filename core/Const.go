@@ -25,3 +25,8 @@ const (
 	PROPERTY_KEY_REPEATER_UNTIL_SUCCESS = "maxLoop"
 	PROPERTY_KEY_LIMITER                = "maxLoop"
 )
+
+const (
+	BLACKBOARD_KEY_WAIT_START = "startTime"
+	BLACKBOARD_KEY_IS_OPEN    = "isOpen"
+)

@@ -1,12 +1,20 @@
 package core
 
 type Tick struct {
-	Tree       *BehaviorTree
-	Debug      interface{}
-	Target     interface{}
-	BlackBoard *BlackBoard
+	tree       *BehaviorTree
+	debug      interface{}
+	target     interface{}
+	blackBoard *BlackBoard
 	_openNodes []INode
 	_nodeCount int32
+}
+
+func (t *Tick) GetTree() IBTree {
+	return t.tree
+}
+
+func (t *Tick) GetBlackBoard() *BlackBoard {
+	return t.blackBoard
 }
 
 // EnterNode 进入节点

@@ -15,11 +15,16 @@ type Wait struct {
 func (node *Wait) Initialize(cfg *config.NodeCfg) {
 	node.Action.Initialize(cfg)
 	// 解析配置中的时间
-	node.endTime = cfg.
-
+	node.endTime = cfg.GetPropertiesAsInt64(core.PROPERTY_KEY_WAIT_MS)
 }
 
 func (node *Wait) OnOpen(tick core.Tick) {
-	var startTime int64 = time.Now().Unix()
-	tick.BlackBoard.Set()
+	var startTime int64 = time.Now().UnixMilli()
+	tick.BlackBoard.Set(core.BLACKBOARD_KEY_WAIT_START, startTime, tick.GetTree().GetId(), node.GetId())
+}
+
+func (node *Wait) OnTick(tick core.Tick) core.NodeStatus {
+	now := time.Now().UnixMilli()
+	startTime := tick.GetBlackBoard()
+
 }

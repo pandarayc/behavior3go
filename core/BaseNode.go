@@ -20,59 +20,29 @@ var _ INodeWrapper = &BaseNode{}
 // 节点通用方法
 type INode interface {
 	// INodeWrapper
-	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
-	GetId() string
-	GetCategory() NodeCategory
+	config.IBaseConfig
 	GetName() string
-	GetTitle() string
-	GetDescription() string
-	GetProperties() map[string]interface{}
+	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
+	GetCategory() NodeCategory
 }
 
 var _ INode = &BaseNode{}
 
 // b3 节点信息 (数据存储载体)
 type BaseNode struct {
-	IWorker            // 为了把外部结构重载方法注入进来使用
-	id          string // uuid
-	category    NodeCategory
-	name        string // name
-	title       string
-	description string
-	properties  map[string]interface{}
+	IWorker // 为了把外部结构重载方法注入进来使用
+	*config.NodeCfg
+	category NodeCategory
 }
 
 // Initialize 初始化节点信息
 func (node *BaseNode) Initialize(cfg *config.NodeCfg) {
-	node.id = cfg.Id
-	node.name = cfg.Name
-	node.title = cfg.Title
-	node.description = cfg.Description
-	node.properties = cfg.Properties
-}
-
-func (node *BaseNode) GetId() string {
-	return node.id
-}
-
-func (node *BaseNode) GetName() string {
-	return node.name
+	// 偷懒偷懒
+	node.NodeCfg = cfg
 }
 
 func (node *BaseNode) GetCategory() NodeCategory {
 	return node.category
-}
-
-func (node *BaseNode) GetTitle() string {
-	return node.title
-}
-
-func (node *BaseNode) GetDescription() string {
-	return node.description
-}
-
-func (node *BaseNode) GetProperties() map[string]interface{} {
-	return node.properties
 }
 
 // 设置工作函数
@@ -88,7 +58,7 @@ func (node *BaseNode) _ctor() {
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
 	// 检查自己是否处于已打开状态
-	if !tick.BlackBoard.GetMemory(tick.Tree.id, node.id).GetBool("isOpen") {
+	if !tick.GetBlackBoard().GetMemory(tick.GetTree().GetId(), node.GetId()).GetBool(BLACKBOARD_KEY_IS_OPEN) {
 		node._enter(tick)
 	}
 
