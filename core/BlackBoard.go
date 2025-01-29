@@ -1,8 +1,10 @@
 package core
 
 type IBlackBoard interface {
-	GetMemory(key string, treeScope string, nodeScope string) IMemory
+	GetMemory(treeScope string, nodeScope string) IMemory
 }
+
+var _ IBlackBoard = &BlackBoard{}
 
 // 数据黑板
 type BlackBoard struct {
@@ -29,7 +31,8 @@ func (b *BlackBoard) GetTreeMemory(treeId string) *TreeMemory {
 	return b.treeMemory[treeId]
 }
 
-func (b *BlackBoard) GetMemory(treeScope, nodeScope string) *memory {
+// GetMemory 获取记录
+func (b *BlackBoard) GetMemory(treeScope, nodeScope string) IMemory {
 	mem := b.baseMemory
 	if len(treeScope) == 0 {
 		treeMem := b.GetTreeMemory(treeScope)
@@ -40,21 +43,6 @@ func (b *BlackBoard) GetMemory(treeScope, nodeScope string) *memory {
 	}
 	return mem
 }
-
-// func (b *BlackBoard) Get(key string, treeScope, nodeScope string) interface{} {
-// 	mem := b.GetMemory(treeScope, nodeScope)
-// 	if mem != nil {
-// 		return mem.Get(key)
-// 	}
-// 	return nil
-// }
-
-// func (b *BlackBoard) Set(key string, value interface{}, treeScope, nodeScope string) {
-// 	mem := b.GetMemory(treeScope, nodeScope)
-// 	if mem != nil {
-// 		mem.Set(key, value)
-// 	}
-// }
 
 // 作为共享信息层处理
 type TreeMemory struct {

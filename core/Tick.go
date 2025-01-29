@@ -13,7 +13,7 @@ func (t *Tick) GetTree() IBTree {
 	return t.tree
 }
 
-func (t *Tick) GetBlackBoard() *BlackBoard {
+func (t *Tick) GetBlackBoard() IBlackBoard {
 	return t.blackBoard
 }
 
