@@ -11,9 +11,10 @@ type B3ProjectCfg struct {
 	CustomNodes  []*NodeCfg `json:"custom_nodes"`
 	SelectedTree string     `json:"selectedTree"`
 	Version      string     `json:"version"`
+	Scope        string     `json:"scope"`
 }
 
-// XXX: 仅支持project级别加载？否则优点乱了
+// 都转换至project级别的配置
 func LoadB3ProjectCfg(path string) *B3ProjectCfg {
 	data, err := os.ReadFile(path)
 	if err != nil {

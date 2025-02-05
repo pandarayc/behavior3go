@@ -1,6 +1,7 @@
 package core
 
 type IMemory interface {
+	Exist(key string) bool
 	Get(key string) interface{}
 	Set(key string, val interface{})
 	GetString(key string) string
@@ -22,6 +23,11 @@ func newMemory() *memory {
 	return &memory{
 		mem: make(map[string]interface{}),
 	}
+}
+
+func (m *memory) Exist(key string) bool {
+	_, ok := m.mem[key]
+	return ok
 }
 
 // 自己转换

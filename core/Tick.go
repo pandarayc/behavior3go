@@ -1,5 +1,7 @@
 package core
 
+// Tick 对象是用于每个Update用于传递上下文的参数对象
+// 并记录当前节点的运行状态
 type Tick struct {
 	tree       *BehaviorTree
 	debug      interface{}
