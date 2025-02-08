@@ -29,4 +29,5 @@ const (
 const (
 	BLACKBOARD_KEY_WAIT_START = "startTime"
 	BLACKBOARD_KEY_IS_OPEN    = "isOpen"
+	BLACKBOARD_KEY_RUNNING_CHILD = "runningChild"
 )

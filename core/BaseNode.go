@@ -24,6 +24,7 @@ type INode interface {
 	GetName() string
 	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
 	GetCategory() NodeCategory
+	Execute(tick *Tick) NodeStatus
 }
 
 var _ INode = &BaseNode{}
@@ -68,6 +69,11 @@ func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	}
 	node._exit(tick)
 	return status
+}
+
+// Execute 执行节点 (官方是protected go需要导出使用)
+func (node *BaseNode) Execute(tick *Tick) NodeStatus {
+	return node._execute(tick)
 }
 
 // _enter 进入节点

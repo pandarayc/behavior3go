@@ -6,6 +6,7 @@ type IMemory interface {
 	Set(key string, val interface{})
 	GetString(key string) string
 	GetBool(key string) bool
+	GetInt(key string) int
 	GetInt32(key string) int32
 	GetInt64(key string) int64
 	GetFloat32(key string) float32
@@ -53,6 +54,14 @@ func (m *memory) GetBool(key string) bool {
 		return val.(bool)
 	}
 	return false
+}
+
+func (m *memory) GetInt(key string) int {
+	val, ok := m.mem[key]
+	if ok {
+		return val.(int)
+	}
+	return 0
 }
 
 func (m *memory) GetInt32(key string) int32 {
