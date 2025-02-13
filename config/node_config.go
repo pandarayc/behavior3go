@@ -3,6 +3,8 @@ package config
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/pandarayc/behavior3go/utils"
 )
 
 type IBaseConfig interface {
@@ -36,6 +38,9 @@ func (t *NodeCfg) String() string {
 }
 
 func (config *NodeCfg) GetId() string {
+	if config.Id == "" {
+		config.Id = utils.GenUuid() // 其实project级别已经全部关联好了，保底
+	}
 	return config.Id
 }
 

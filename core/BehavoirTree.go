@@ -16,7 +16,8 @@ type BehaviorTree struct {
 
 var _ IBTree = &BehaviorTree{}
 
-func (bt *BehaviorTree) Load() {
+func (bt *BehaviorTree) Load(data *config.B3ProjectCfg, baseResigter, extraResigter RegisterHandlers) {
+
 
 }
 

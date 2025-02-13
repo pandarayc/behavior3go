@@ -1,108 +1,120 @@
 {
-    "version": "0.3.0",
-    "scope": "project",
-    "selectedTree": "ae1d56fb-8c7f-4b74-870a-06664b013330",
-    "trees": [
-      {
-        "version": "0.3.0",
-        "scope": "tree",
-        "id": "ae1d56fb-8c7f-4b74-870a-06664b013330",
-        "title": "A behavior tree",
-        "description": "",
-        "root": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
-        "properties": {},
-        "nodes": {
-          "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073": {
-            "id": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
-            "name": "Priority",
-            "title": "Priority",
-            "description": "",
-            "properties": {},
-            "display": {
-              "x": 60,
-              "y": 60
-            },
-            "children": [
-              "3793722f-a21e-40fc-8479-835148856e5e",
-              "c53f94d3-2b37-4dbe-805a-05ef23b8fb25"
-            ]
+  "version": "0.3.0",
+  "scope": "project",
+  "selectedTree": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+  "trees": [
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+      "title": "A behavior tree",
+      "description": "",
+      "root": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+      "properties": {},
+      "nodes": {
+        "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073": {
+          "id": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+          "name": "Priority",
+          "title": "Priority",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 60,
+            "y": 60
           },
-          "c53f94d3-2b37-4dbe-805a-05ef23b8fb25": {
-            "id": "c53f94d3-2b37-4dbe-805a-05ef23b8fb25",
-            "name": "Repeater",
-            "title": "Repeat <maxLoop>x",
-            "description": "",
-            "properties": {
-              "maxLoop": -1
-            },
-            "display": {
-              "x": -72,
-              "y": 180
-            },
-            "child": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983"
+          "children": [
+            "3b532dec-1d89-46d6-8270-fbca3a906d94",
+            "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3",
+            "c53f94d3-2b37-4dbe-805a-05ef23b8fb25"
+          ]
+        },
+        "c53f94d3-2b37-4dbe-805a-05ef23b8fb25": {
+          "id": "c53f94d3-2b37-4dbe-805a-05ef23b8fb25",
+          "name": "Repeater",
+          "title": "Repeat <maxLoop>x",
+          "description": "",
+          "properties": {
+            "maxLoop": -1
           },
-          "aa4d51e7-c2a0-4c18-bee0-628b6f08d983": {
-            "id": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983",
-            "name": "Failer",
-            "title": "Failer",
-            "description": "",
-            "properties": {
-              "323": 23
-            },
-            "display": {
-              "x": 132,
-              "y": 204
-            }
+          "display": {
+            "x": -72,
+            "y": 180
           },
-          "3793722f-a21e-40fc-8479-835148856e5e": {
-            "id": "3793722f-a21e-40fc-8479-835148856e5e",
-            "name": "730d5dae-6759-4c51-a7be-1e48364ed8b3",
-            "title": "two tree",
-            "description": "",
-            "properties": {},
-            "display": {
-              "x": 240,
-              "y": 84
-            }
+          "child": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983"
+        },
+        "aa4d51e7-c2a0-4c18-bee0-628b6f08d983": {
+          "id": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983",
+          "name": "Failer",
+          "title": "Failer",
+          "description": "",
+          "properties": {
+            "323": 23
+          },
+          "display": {
+            "x": 132,
+            "y": 204
           }
         },
-        "display": {
-          "camera_x": 799,
-          "camera_y": 338.5,
-          "camera_z": 1,
-          "x": 0,
-          "y": 0
+        "3b532dec-1d89-46d6-8270-fbca3a906d94": {
+          "id": "3b532dec-1d89-46d6-8270-fbca3a906d94",
+          "name": "85541313-b815-4146-8c41-3537d3156c75",
+          "title": "test2",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 324,
+            "y": -36
+          }
+        },
+        "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3": {
+          "id": "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3",
+          "name": "85541313-b815-4146-8c41-3537d3156c75",
+          "title": "test4",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 336,
+            "y": 48
+          }
         }
       },
-      {
-        "version": "0.3.0",
-        "scope": "tree",
-        "id": "730d5dae-6759-4c51-a7be-1e48364ed8b3",
-        "title": "two tree",
-        "description": "",
-        "root": "ef352764-4f5f-4f0c-8c44-3419bd990d16",
-        "properties": {},
-        "nodes": {
-          "ef352764-4f5f-4f0c-8c44-3419bd990d16": {
-            "id": "ef352764-4f5f-4f0c-8c44-3419bd990d16",
-            "name": "Failer",
-            "title": "ddd",
-            "description": "qwe",
-            "properties": {},
-            "display": {
-              "x": 216,
-              "y": -12
-            }
-          }
-        },
-        "display": {
-          "camera_x": 1024,
-          "camera_y": 491.5,
-          "camera_z": 1,
-          "x": 0,
-          "y": 0
-        }
+      "display": {
+        "camera_x": 540,
+        "camera_y": 383.5,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
       }
-    ],
-    "custom_nodes": []
-  }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "85541313-b815-4146-8c41-3537d3156c75",
+      "title": "test1",
+      "description": "qqq",
+      "root": "459dda49-bea7-480a-a81e-da319d444a2c",
+      "properties": {},
+      "nodes": {
+        "459dda49-bea7-480a-a81e-da319d444a2c": {
+          "id": "459dda49-bea7-480a-a81e-da319d444a2c",
+          "name": "Succeeder",
+          "title": "Succeeder",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 192,
+            "y": -48
+          }
+        }
+      },
+      "display": {
+        "camera_x": 1024,
+        "camera_y": 491.5,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "custom_nodes": []
+}

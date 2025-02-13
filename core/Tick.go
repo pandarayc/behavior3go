@@ -33,10 +33,12 @@ func (t *Tick) _enterNode(node INode) {
 
 // 开启节点
 func (t *Tick) _openNode(node INode) {
+	// todo: call debug here
 }
 
 // tick 节点
 func (t *Tick) _tickNode(node INode) {
+	// todo: call debug here
 }
 
 // 关闭节点
@@ -50,5 +52,6 @@ func (t *Tick) _closeNode(node INode) {
 
 // 推出节点
 func (t *Tick) _exitNode(node INode) {
+	// todo: call debug here
 
 }
