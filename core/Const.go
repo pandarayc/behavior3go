@@ -19,15 +19,14 @@ const (
 )
 
 const (
-	PROPERTY_KEY_WAIT_MS                = "milliseconds" // ACTION_WAIT 参数 毫秒
-	PROPERTY_KEY_REPEATER_LOOP          = "maxLoop"      // decorator
-	PROPERTY_KEY_REPEATER_UNTIL_FAILURE = "maxLoop"
-	PROPERTY_KEY_REPEATER_UNTIL_SUCCESS = "maxLoop"
-	PROPERTY_KEY_LIMITER                = "maxLoop"
+	PROPERTY_KEY_WAIT_MS  = "milliseconds" // ACTION_WAIT 参数 毫秒
+	PROPERTY_KEY_MAX_LOOP = "maxLoop"      // decorator
+	PROPERTY_KEY_MAX_TIME = "maxTime"      // decorator
 )
 
 const (
-	BLACKBOARD_KEY_WAIT_START = "startTime"
-	BLACKBOARD_KEY_IS_OPEN    = "isOpen"
+	BLACKBOARD_KEY_START_TS      = "startTime"
+	BLACKBOARD_KEY_IS_OPEN       = "isOpen"
 	BLACKBOARD_KEY_RUNNING_CHILD = "runningChild"
+	BlackBoard_KEY_RANGE_INDEX   = "i"
 )

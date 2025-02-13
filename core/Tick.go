@@ -19,6 +19,11 @@ func (t *Tick) GetBlackBoard() IBlackBoard {
 	return t.blackBoard
 }
 
+// GetMemory 获取当前树对应节点的黑板信息
+func (t *Tick) GetMemory(nodeId string) IMemory {
+	return t.blackBoard.GetMemory(t.tree.Id, nodeId)
+}
+
 // EnterNode 进入节点
 func (t *Tick) _enterNode(node INode) {
 	// 计算树节点列表

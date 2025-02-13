@@ -20,12 +20,12 @@ func (node *Wait) Initialize(cfg *config.NodeCfg) {
 
 func (node *Wait) OnOpen(tick core.Tick) {
 	var startTime int64 = time.Now().UnixMilli()
-	tick.GetBlackBoard().GetMemory(tick.GetTree().GetId(), node.GetId()).Set(core.BLACKBOARD_KEY_WAIT_START, startTime)
+	tick.GetMemory(node.GetId()).Set(core.BLACKBOARD_KEY_START_TS, startTime)
 }
 
 func (node *Wait) OnTick(tick core.Tick) core.NodeStatus {
 	now := time.Now().UnixMilli()
-	startTime := tick.GetBlackBoard().GetMemory(tick.GetTree().GetId(), node.GetId()).GetInt64(core.BLACKBOARD_KEY_WAIT_START)
+	startTime := tick.GetMemory(node.GetId()).GetInt64(core.BLACKBOARD_KEY_START_TS)
 	if now-startTime >= node.endTime {
 		return core.STATUS_SUCCESS
 	}

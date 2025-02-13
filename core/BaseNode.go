@@ -59,7 +59,7 @@ func (node *BaseNode) _ctor() {
 func (node *BaseNode) _execute(tick *Tick) NodeStatus {
 	node._enter(tick)
 	// 检查自己是否处于已打开状态
-	if !tick.GetBlackBoard().GetMemory(tick.GetTree().GetId(), node.GetId()).GetBool(BLACKBOARD_KEY_IS_OPEN) {
+	if !tick.GetMemory(node.GetId()).GetBool(BLACKBOARD_KEY_IS_OPEN) {
 		node._enter(tick)
 	}
 

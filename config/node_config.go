@@ -63,6 +63,15 @@ func (t *NodeCfg) GetProperty(name string) interface{} {
 	return v
 }
 
+func (t *NodeCfg) GetPropertyAsInt(name string) int {
+	v := t.GetProperty(name)
+	val, ok := v.(int)
+	if !ok {
+		panic(fmt.Sprintf("nodeId:%+v prop:%v fail translate", t.GetName(), name))
+	}
+	return val
+}
+
 func (t *NodeCfg) GetPropertyAsInt32(name string) int32 {
 	v := t.GetProperty(name)
 	val, ok := v.(int32)
