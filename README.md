@@ -10,3 +10,7 @@
 https://github.com/magicsea/behavior3go
 
 https://github.com/behavior3/behavior3js
+
+## 改造
+因为还有子树结构连接，不能用原本的封装方式
+在更上一层封装成智能体模式，原本树结构改为树节点

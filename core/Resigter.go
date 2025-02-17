@@ -1,14 +1,5 @@
 package core
 
-var DefaultRegisterHandlers *RegisterHandlers
-
-func GetDefaultRegisterHandlers() *RegisterHandlers {
-	if DefaultRegisterHandlers == nil {
-		DefaultRegisterHandlers = NewRegisterHandlers()
-	}
-	return DefaultRegisterHandlers
-}
-
 // 方法注册器
 type RegisterHandlers struct {
 	handlers map[string]INode
