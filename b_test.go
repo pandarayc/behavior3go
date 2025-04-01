@@ -1,17 +1,29 @@
 package behavior3go
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/pandarayc/behavior3go/core"
 )
 
 func TestXxx(t *testing.T) {
-	a := make(map[string]interface{})
-	a["k"] = nil
-	x, ok := a["k"]
-	if ok {
-		fmt.Println(x)
+	mgr := New()
+	mgr.LoadCfg("example/project2.json")
+	// mgr.EchoConfig()
+	err := 	mgr.Load()
+	if err != nil {
+		t.Fatal(err)
 	}
-	t.Fatalf("fail")
+	mgr.DumpTree()
+}
 
+func TestNewNode(t *testing.T) {
+	name := "Wait"
+	handlers := GetDefaultRegisterHandlers()
+	node, err := handlers.New(name)
+	if err != nil {
+		t.Fatal(err)
+	}
+	node.SetWorker(node.(core.IWorker))
+	_ = node
 }

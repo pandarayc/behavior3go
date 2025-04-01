@@ -5,21 +5,21 @@ import (
 	"github.com/pandarayc/behavior3go/core"
 )
 
-type RepeatUntilSucess struct {
+type RepeatUntilSuccess struct {
 	core.Decorator
 	maxLoop int
 }
 
-func (node *RepeatUntilSucess) Initialize(cfg *config.NodeCfg) {
+func (node *RepeatUntilSuccess) Initialize(cfg *config.NodeCfg) {
 	node.Decorator.Initialize(cfg)
 	node.maxLoop = cfg.GetPropertyAsInt(core.PROPERTY_KEY_MAX_LOOP)
 }
 
-func (node *RepeatUntilSucess) OnOpen(tick *core.Tick) {
+func (node *RepeatUntilSuccess) OnOpen(tick *core.Tick) {
 	tick.GetMemory(node.GetId()).Set(core.BlackBoard_KEY_RANGE_INDEX, 0)
 }
 
-func (node *RepeatUntilSucess) OnTick(tick *core.Tick) core.NodeStatus {
+func (node *RepeatUntilSuccess) OnTick(tick *core.Tick) core.NodeStatus {
 	if node.GetChild() == nil {
 		return core.STATUS_ERROR
 	}

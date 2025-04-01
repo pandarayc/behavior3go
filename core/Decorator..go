@@ -16,7 +16,7 @@ type Decorator struct {
 
 var _ IDecorator = &Decorator{}
 
-func (node *Decorator) _ctor() {
+func (node *Decorator) Ctor() {
 	node.category = CATEGORY_DECORATOR
 }
 

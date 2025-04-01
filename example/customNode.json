@@ -1,0 +1,130 @@
+{
+    "version": "0.3.0",
+    "scope": "project",
+    "selectedTree": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+    "trees": [
+        {
+            "version": "0.3.0",
+            "scope": "tree",
+            "id": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+            "title": "A behavior tree",
+            "description": "",
+            "root": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+            "properties": {},
+            "nodes": {
+                "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073": {
+                    "id": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+                    "name": "Priority",
+                    "title": "Priority",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 60,
+                        "y": 60
+                    },
+                    "children": [
+                        "c53f94d3-2b37-4dbe-805a-05ef23b8fb25"
+                    ]
+                },
+                "c53f94d3-2b37-4dbe-805a-05ef23b8fb25": {
+                    "id": "c53f94d3-2b37-4dbe-805a-05ef23b8fb25",
+                    "name": "Repeater",
+                    "title": "Repeat <maxLoop>x",
+                    "description": "",
+                    "properties": {
+                        "maxLoop": -1
+                    },
+                    "display": {
+                        "x": -72,
+                        "y": 180
+                    },
+                    "child": "b6ca9a07-bd0b-4abb-924a-073fdd8e1359"
+                },
+                "b6ca9a07-bd0b-4abb-924a-073fdd8e1359": {
+                    "id": "b6ca9a07-bd0b-4abb-924a-073fdd8e1359",
+                    "name": "0130e40c-67c9-4bcd-8e91-76d4ca168fa7",
+                    "title": "A behavior tree",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 300,
+                        "y": 204
+                    }
+                }
+            },
+            "display": {
+                "camera_x": 540,
+                "camera_y": 383.5,
+                "camera_z": 1,
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "version": "0.3.0",
+            "scope": "tree",
+            "id": "0130e40c-67c9-4bcd-8e91-76d4ca168fa7",
+            "title": "A behavior tree",
+            "description": "",
+            "root": "b6bfd6ba-3a4e-4b7a-a49c-1066166feee3",
+            "properties": {},
+            "nodes": {
+                "841d4077-c089-4496-8d23-a5999430c4e3": {
+                    "id": "841d4077-c089-4496-8d23-a5999430c4e3",
+                    "name": "Error",
+                    "title": "Error",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 192,
+                        "y": 12
+                    }
+                },
+                "39f74b95-34f6-4c6c-b91a-97fd9a958cf2": {
+                    "id": "39f74b95-34f6-4c6c-b91a-97fd9a958cf2",
+                    "name": "Condtest",
+                    "title": "tt",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": 180,
+                        "y": 72
+                    }
+                },
+                "b6bfd6ba-3a4e-4b7a-a49c-1066166feee3": {
+                    "id": "b6bfd6ba-3a4e-4b7a-a49c-1066166feee3",
+                    "name": "Sequence",
+                    "title": "Sequence",
+                    "description": "",
+                    "properties": {},
+                    "display": {
+                        "x": -24,
+                        "y": -24
+                    },
+                    "children": [
+                        "841d4077-c089-4496-8d23-a5999430c4e3",
+                        "39f74b95-34f6-4c6c-b91a-97fd9a958cf2"
+                    ]
+                }
+            },
+            "display": {
+                "camera_x": 1024,
+                "camera_y": 491.5,
+                "camera_z": 1,
+                "x": -168,
+                "y": -60
+            }
+        }
+    ],
+    "custom_nodes": [
+        {
+            "version": "0.3.0",
+            "scope": "node",
+            "name": "Condtest",
+            "category": "condition",
+            "title": "gg",
+            "description": null,
+            "properties": {}
+        }
+    ]
+}

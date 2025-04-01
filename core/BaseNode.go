@@ -10,8 +10,6 @@ type INodeWrapper interface {
 	_tick(tick *Tick) NodeStatus
 	_close(tick *Tick)
 	_exit(tick *Tick)
-	_ctor()
-	_setWorker(IWorker)
 }
 
 var _ INodeWrapper = &BaseNode{}
@@ -21,7 +19,8 @@ var _ INodeWrapper = &BaseNode{}
 type INode interface {
 	// INodeWrapper
 	config.IBaseConfig
-	GetName() string
+	SetWorker(IWorker)
+	Ctor()
 	Initialize(*config.NodeCfg) // 初始化时把外层结构注入
 	GetCategory() NodeCategory
 	Execute(tick *Tick) NodeStatus
@@ -47,12 +46,12 @@ func (node *BaseNode) GetCategory() NodeCategory {
 }
 
 // 设置工作函数
-func (node *BaseNode) _setWorker(worker IWorker) {
+func (node *BaseNode) SetWorker(worker IWorker) {
 	node.IWorker = worker
 }
 
-// _ctor 构造函数
-func (node *BaseNode) _ctor() {
+// ctor 构造函数
+func (node *BaseNode) Ctor() {
 }
 
 // _execute 执行节点

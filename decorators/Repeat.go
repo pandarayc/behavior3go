@@ -5,21 +5,21 @@ import (
 	"github.com/pandarayc/behavior3go/core"
 )
 
-type Repeat struct {
+type Repeater struct {
 	core.Decorator
 	maxLoop int
 }
 
-func (node *Repeat) Initialize(cfg *config.NodeCfg) {
+func (node *Repeater) Initialize(cfg *config.NodeCfg) {
 	node.Decorator.Initialize(cfg)
 	node.maxLoop = cfg.GetPropertyAsInt(core.PROPERTY_KEY_MAX_LOOP)
 }
 
-func (node *Repeat) OnOpen(tick *core.Tick) {
+func (node *Repeater) OnOpen(tick *core.Tick) {
 	tick.GetMemory(node.GetId()).Set(core.BlackBoard_KEY_RANGE_INDEX, 0)
 }
 
-func (node *Repeat) OnTick(tick *core.Tick) core.NodeStatus {
+func (node *Repeater) OnTick(tick *core.Tick) core.NodeStatus {
 	if node.GetChild() == nil {
 		return core.STATUS_ERROR
 	}

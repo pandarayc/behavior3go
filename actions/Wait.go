@@ -18,12 +18,12 @@ func (node *Wait) Initialize(cfg *config.NodeCfg) {
 	node.endTime = node.GetPropertyAsInt64(core.PROPERTY_KEY_WAIT_MS)
 }
 
-func (node *Wait) OnOpen(tick core.Tick) {
+func (node *Wait) OnOpen(tick *core.Tick) {
 	var startTime int64 = time.Now().UnixMilli()
 	tick.GetMemory(node.GetId()).Set(core.BLACKBOARD_KEY_START_TS, startTime)
 }
 
-func (node *Wait) OnTick(tick core.Tick) core.NodeStatus {
+func (node *Wait) OnTick(tick *core.Tick) core.NodeStatus {
 	now := time.Now().UnixMilli()
 	startTime := tick.GetMemory(node.GetId()).GetInt64(core.BLACKBOARD_KEY_START_TS)
 	if now-startTime >= node.endTime {

@@ -8,6 +8,6 @@ type Error struct {
 
 //  通过配置表注入的正常不用重新赋值name
 
-func (node *Error) OnTick(tick core.Tick) core.NodeStatus {
+func (node *Error) OnTick(tick *core.Tick) core.NodeStatus {
 	return core.STATUS_ERROR
 }

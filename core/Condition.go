@@ -13,7 +13,7 @@ type Condition struct {
 
 var _ ICondition = &Condition{}
 
-func (node *Condition) _ctor() {
+func (node *Condition) Ctor() {
 	node.category = CATEGORY_CONDITION
 }
 

@@ -19,7 +19,7 @@ type Composite struct {
 
 var _ IComposite = &Composite{}
 
-func (node *Composite) _ctor() {
+func (node *Composite) Ctor() {
 	node.category = CATEGORY_COMPOSITE
 }
 

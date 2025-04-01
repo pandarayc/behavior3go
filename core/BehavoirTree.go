@@ -6,27 +6,34 @@ import (
 
 type IBTree interface {
 	config.IBaseConfig
+	INode
+	SetRoot(INode)
+	GetRoot() INode
 }
 
 type BehaviorTree struct {
-	*config.NodeCfg
-	root  INode
-	debug interface{}
+	BaseNode
+	root     INode
+	debug    interface{}
 }
 
 var _ IBTree = &BehaviorTree{}
 
+func NewBehaviorTree() *BehaviorTree {
+	return &BehaviorTree{}
+}
 
-// 官方导入的是树级别的配置
-func (bt *BehaviorTree) Load(data *config.TreeCfg, baseResigter, customNodes RegisterHandlers) {
+// 伪装用
+func (bt *BehaviorTree) Initialize(cfg *config.NodeCfg) {
+	bt.BaseNode.Initialize(cfg)
+}
 
-	// 初始化树信息
-	for id := range data.Nodes {
+func (bt *BehaviorTree) Execute(tick *Tick) NodeStatus {
+	return bt.root.Execute(tick)
+}
 
-	}
-
-
-
+func (bt *BehaviorTree) Ctor() {
+	bt.category = CATEGORY_TREE
 }
 
 func (bt *BehaviorTree) Dump() {
@@ -37,5 +44,10 @@ func (bt *BehaviorTree) Tick(target interface{}, blackboard *BlackBoard) NodeSta
 	return 0
 }
 
+func (bt *BehaviorTree) SetRoot(root INode) {
+	bt.root = root
+}
 
-// 树类型也可以执行，判定为子树类型
+func (bt *BehaviorTree) GetRoot() INode {
+	return bt.root
+}

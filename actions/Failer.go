@@ -6,6 +6,6 @@ type Failer struct {
 	core.Action
 }
 
-func (node *Failer) OnTick(tick core.Tick) core.NodeStatus {
+func (node *Failer) OnTick(tick *core.Tick) core.NodeStatus {
 	return core.STATUS_FAILURE
 }

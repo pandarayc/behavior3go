@@ -30,9 +30,9 @@ func GetDefaultRegisterHandlers() *core.RegisterHandlers {
 		handlers.Add("Inverter", &decorators.Inverter{})
 		handlers.Add("Limiter", &decorators.Limiter{})
 		handlers.Add("MaxTime", &decorators.MaxTime{})
-		handlers.Add("Repeat", &decorators.Repeat{})
+		handlers.Add("Repeater", &decorators.Repeater{})
 		handlers.Add("RepeatUntilFailure", &decorators.RepeatUntilFailure{})
-		handlers.Add("RepeatUntilSucess", &decorators.RepeatUntilSucess{})
+		handlers.Add("RepeatUntilSuccess", &decorators.RepeatUntilSuccess{})
 
 		defaultRegisterHandlers = handlers
 	}
