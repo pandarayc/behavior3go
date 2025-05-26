@@ -114,7 +114,6 @@ func (mgr *B3) Load() error {
 				decoratorNode := node.(core.IDecorator)
 				decoratorNode.SetChild(nodes[nodeCfg.Child])
 			}else if node.GetCategory() == core.CATEGORY_TREE {
-				treeN 
 
 			}
 		}
