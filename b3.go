@@ -74,15 +74,16 @@ func (mgr *B3) Load() error {
 
 			// uid命名通常为树节点
 			if len(name) >= 36 {
-				continue
-			}
-			// 检查自定义表
-			if tnode, err := mgr.customHandlers.New(name); err == nil {
-				node = tnode
+				node = &core.TreeNode{}
 			} else {
-				// 检查默认表
-				if tnode, err := mgr.defaultHandlers.New(name); err == nil {
+				// 检查自定义表
+				if tnode, err := mgr.customHandlers.New(name); err == nil {
 					node = tnode
+				} else {
+					// 检查默认表
+					if tnode, err := mgr.defaultHandlers.New(name); err == nil {
+						node = tnode
+					}
 				}
 			}
 			if node == nil {
@@ -104,17 +105,23 @@ func (mgr *B3) Load() error {
 	for _, treeCfg := range mgr.projectCfg.Trees {
 		for _, nodeCfg := range treeCfg.Nodes {
 			node := nodes[nodeCfg.Id]
-			if node.GetCategory() == core.CATEGORY_COMPOSITE && len(nodeCfg.Children) > 0 {
+			switch node.GetCategory() {
+			case core.CATEGORY_TREE_NODE:
+				treeNode := node.(core.ITreeNode)
+				if nodeCfg.Name != "" {
+					treeNode.SetChild(nodes[nodeCfg.Name])
+				}
+			case core.CATEGORY_COMPOSITE:
 				compositeNode := node.(core.IComposite)
 				for _, childId := range nodeCfg.Children {
 					childNode := nodes[childId]
 					compositeNode.AddChild(childNode)
 				}
-			} else if node.GetCategory() == core.CATEGORY_DECORATOR && len(nodeCfg.Child) > 0 {
-				decoratorNode := node.(core.IDecorator)
-				decoratorNode.SetChild(nodes[nodeCfg.Child])
-			}else if node.GetCategory() == core.CATEGORY_TREE {
-
+			case core.CATEGORY_DECORATOR:
+				if nodeCfg.Child != "" {
+					decoratorNode := node.(core.IDecorator)
+					decoratorNode.SetChild(nodes[nodeCfg.Child])
+				}
 			}
 		}
 		treeNode := nodes[treeCfg.Id].(core.IBTree)
@@ -163,7 +170,6 @@ func printNode(root core.INode, blk int) {
 		printNode(tree.GetRoot(), blk+3)
 		return
 	}
-
 
 	if root.GetCategory() == core.CATEGORY_DECORATOR {
 		dec := root.(core.IDecorator)

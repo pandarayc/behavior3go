@@ -17,6 +17,7 @@ const (
 	CATEGORY_COMPOSITE NodeCategory = "composite"
 	CATEGORY_CONDITION NodeCategory = "condition"
 	CATEGORY_TREE      NodeCategory = "tree"
+	CATEGORY_TREE_NODE NodeCategory = "treeNode"
 )
 
 const (
