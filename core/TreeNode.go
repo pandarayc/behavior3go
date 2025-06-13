@@ -29,3 +29,7 @@ func (node *TreeNode) GetChild() INode {
 func (node *TreeNode) SetChild(child INode) {
 	node.child = child
 }
+
+func (node *TreeNode) OnTick(tick *Tick) NodeStatus {
+	return node.child.Execute(tick)
+}

@@ -1,14 +1,28 @@
 package core
 
+import "fmt"
+
 // Tick 对象是用于每个Update用于传递上下文的参数对象
 // 并记录当前节点的运行状态
 type Tick struct {
-	tree       *BehaviorTree
+	tree       IBTree
 	debug      interface{}
 	target     interface{}
 	blackBoard *BlackBoard
 	_openNodes []INode
 	_nodeCount int32
+}
+
+func NewTick() *Tick {
+	return &Tick{}
+}
+
+func (t *Tick) SetBlackBoard(blackBoard *BlackBoard) {
+	t.blackBoard = blackBoard
+}
+
+func (t *Tick) SetTree(tree IBTree) {
+	t.tree = tree
 }
 
 func (t *Tick) GetTree() IBTree {
@@ -39,6 +53,7 @@ func (t *Tick) _openNode(node INode) {
 // tick 节点
 func (t *Tick) _tickNode(node INode) {
 	// todo: call debug here
+	fmt.Printf("tick node: %s %s %s\n", node.GetId(), node.GetCategory(), node.GetTitle())
 }
 
 // 关闭节点

@@ -141,8 +141,15 @@ func (mgr *B3) Tick() core.NodeStatus {
 	if mgr.root == nil {
 		return core.STATUS_ERROR
 	}
-	// status := mgr.root.Execute(mgr.blackboard)
-	status := core.STATUS_SUCCESS
+
+	tick := core.NewTick()
+	tick.SetBlackBoard(mgr.blackboard)
+	tick.SetTree(mgr.root)
+
+	status := mgr.root.Execute(tick)
+	// status := core.STATUS_SUCCESS
+
+	// 记录遍历过程
 	return status
 }
 

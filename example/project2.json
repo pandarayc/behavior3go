@@ -1,109 +1,66 @@
 {
   "version": "0.3.0",
   "scope": "project",
-  "selectedTree": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+  "selectedTree": "98ce0b1e-6128-42d1-843f-c22d9285b53d",
   "trees": [
     {
       "version": "0.3.0",
       "scope": "tree",
-      "id": "ae1d56fb-8c7f-4b74-870a-06664b013330",
+      "id": "98ce0b1e-6128-42d1-843f-c22d9285b53d",
       "title": "A behavior tree",
       "description": "",
-      "root": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
+      "root": "267b7d98-9a4b-44f4-b339-410aa7d901dc",
       "properties": {},
       "nodes": {
-        "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073": {
-          "id": "c6ce6fb9-a1f6-423b-8a39-4cfe6adda073",
-          "name": "Priority",
-          "title": "Priority",
+        "267b7d98-9a4b-44f4-b339-410aa7d901dc": {
+          "id": "267b7d98-9a4b-44f4-b339-410aa7d901dc",
+          "name": "Sequence",
+          "title": "gg",
           "description": "",
           "properties": {},
           "display": {
-            "x": 60,
-            "y": 60
+            "x": -84,
+            "y": -228
           },
           "children": [
-            "3b532dec-1d89-46d6-8270-fbca3a906d94",
-            "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3",
-            "c53f94d3-2b37-4dbe-805a-05ef23b8fb25"
+            "676c6aa9-1336-48f4-a0e9-6f19fe2ad884",
+            "f822ff2a-b4f6-4908-801e-db1331a58ed8"
           ]
         },
-        "c53f94d3-2b37-4dbe-805a-05ef23b8fb25": {
-          "id": "c53f94d3-2b37-4dbe-805a-05ef23b8fb25",
-          "name": "Repeater",
-          "title": "Repeat <maxLoop>x",
+        "f822ff2a-b4f6-4908-801e-db1331a58ed8": {
+          "id": "f822ff2a-b4f6-4908-801e-db1331a58ed8",
+          "name": "052cca39-5d94-45a8-8f44-ffa645da50c7",
+          "title": "testEcho",
           "description": "",
-          "properties": {
-            "maxLoop": -1
-          },
+          "properties": {},
           "display": {
-            "x": -72,
-            "y": 180
-          },
-          "child": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983"
+            "x": 96,
+            "y": 0
+          }
         },
-        "aa4d51e7-c2a0-4c18-bee0-628b6f08d983": {
-          "id": "aa4d51e7-c2a0-4c18-bee0-628b6f08d983",
-          "name": "Failer",
-          "title": "Failer",
+        "676c6aa9-1336-48f4-a0e9-6f19fe2ad884": {
+          "id": "676c6aa9-1336-48f4-a0e9-6f19fe2ad884",
+          "name": "Repeater",
+          "title": "qw",
           "description": "",
           "properties": {
-            "323": 23
+            "maxLoop": 3
           },
           "display": {
             "x": 132,
-            "y": 204
-          }
+            "y": -264
+          },
+          "child": "b9ca5ab4-e300-4791-80ce-73d0e0078e54"
         },
-        "3b532dec-1d89-46d6-8270-fbca3a906d94": {
-          "id": "3b532dec-1d89-46d6-8270-fbca3a906d94",
-          "name": "85541313-b815-4146-8c41-3537d3156c75",
-          "title": "test2",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": 324,
-            "y": -36
-          }
-        },
-        "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3": {
-          "id": "81fa6b8b-1fb7-4b44-88c2-5ef5eba48ff3",
-          "name": "85541313-b815-4146-8c41-3537d3156c75",
-          "title": "test4",
-          "description": "",
-          "properties": {},
-          "display": {
-            "x": 336,
-            "y": 48
-          }
-        }
-      },
-      "display": {
-        "camera_x": 540,
-        "camera_y": 383.5,
-        "camera_z": 1,
-        "x": 0,
-        "y": 0
-      }
-    },
-    {
-      "version": "0.3.0",
-      "scope": "tree",
-      "id": "85541313-b815-4146-8c41-3537d3156c75",
-      "title": "test1",
-      "description": "qqq",
-      "root": "459dda49-bea7-480a-a81e-da319d444a2c",
-      "properties": {},
-      "nodes": {
-        "459dda49-bea7-480a-a81e-da319d444a2c": {
-          "id": "459dda49-bea7-480a-a81e-da319d444a2c",
+        "b9ca5ab4-e300-4791-80ce-73d0e0078e54": {
+          "id": "b9ca5ab4-e300-4791-80ce-73d0e0078e54",
           "name": "Succeeder",
-          "title": "Succeeder",
+          "title": "test3",
           "description": "",
           "properties": {},
           "display": {
-            "x": 192,
-            "y": -48
+            "x": 348,
+            "y": -192
           }
         }
       },
@@ -111,8 +68,63 @@
         "camera_x": 1024,
         "camera_y": 491.5,
         "camera_z": 1,
-        "x": 0,
-        "y": 0
+        "x": -228,
+        "y": -216
+      }
+    },
+    {
+      "version": "0.3.0",
+      "scope": "tree",
+      "id": "052cca39-5d94-45a8-8f44-ffa645da50c7",
+      "title": "testEcho",
+      "description": "",
+      "root": "96f0e01f-e61a-4fb0-8fca-a14318b8090a",
+      "properties": {},
+      "nodes": {
+        "96f0e01f-e61a-4fb0-8fca-a14318b8090a": {
+          "id": "96f0e01f-e61a-4fb0-8fca-a14318b8090a",
+          "name": "Sequence",
+          "title": "tc",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 48,
+            "y": -48
+          },
+          "children": [
+            "51f75b8d-7900-4594-8053-30aa599975a4",
+            "ea632304-29be-4d80-8d10-72aedb06300f"
+          ]
+        },
+        "51f75b8d-7900-4594-8053-30aa599975a4": {
+          "id": "51f75b8d-7900-4594-8053-30aa599975a4",
+          "name": "Succeeder",
+          "title": "testSuccess",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 264,
+            "y": -204
+          }
+        },
+        "ea632304-29be-4d80-8d10-72aedb06300f": {
+          "id": "ea632304-29be-4d80-8d10-72aedb06300f",
+          "name": "Failer",
+          "title": "testFail",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 288,
+            "y": 48
+          }
+        }
+      },
+      "display": {
+        "camera_x": 1024,
+        "camera_y": 491.5,
+        "camera_z": 1,
+        "x": -84,
+        "y": -12
       }
     }
   ],
