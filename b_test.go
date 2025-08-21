@@ -19,7 +19,7 @@ func TestXxx(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 		fmt.Println("tick start ", i)
-		mgr.Tick()
+		mgr.Tick(nil, nil)
 		fmt.Println("tick end ", i)
 	}
 }

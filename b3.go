@@ -22,8 +22,6 @@ type B3 struct {
 	// 自定义方法表
 	customHandlers *core.RegisterHandlers
 	root           core.IBTree
-	target         interface{}
-	blackboard     *core.BlackBoard
 }
 
 // New creates a new behavior tree manager
@@ -34,12 +32,15 @@ func New() *B3 {
 	}
 	mgr.defaultHandlers = GetDefaultRegisterHandlers()
 	mgr.customHandlers = core.NewRegisterHandlers()
-	mgr.blackboard = core.NewBlackBoard()
-	mgr.target = nil
 	return mgr
 }
 
-func (mgr *B3) RegisterCustomFunc(name string, node core.INode) {
+func (mgr *B3) RegisterCustomFunc(name string, node core.INode) error {
+	// 检查是否已经注册
+	if err := mgr.customHandlers.Add(name, node); err != nil {
+		return err
+	}
+	return nil
 }
 
 // LoadProjectCfg loads a behavior tree project configuration from a file
@@ -133,8 +134,13 @@ func (mgr *B3) Load() error {
 	return nil
 }
 
-func (mgr *B3) Tick() core.NodeStatus {
-	if mgr.blackboard == nil {
+// Tick 执行树的遍历
+func (mgr *B3) Tick(target interface{}, blackboard *core.BlackBoard) core.NodeStatus {
+	if target == nil {
+		fmt.Println("target not initialized")
+		return core.STATUS_ERROR
+	}
+	if blackboard == nil {
 		fmt.Println("blackboard not initialized")
 		return core.STATUS_ERROR
 	}
@@ -143,8 +149,9 @@ func (mgr *B3) Tick() core.NodeStatus {
 	}
 
 	tick := core.NewTick()
-	tick.SetBlackBoard(mgr.blackboard)
+	tick.SetBlackBoard(blackboard)
 	tick.SetTree(mgr.root)
+	tick.SetTarget(target)
 
 	status := mgr.root.Execute(tick)
 	// status := core.STATUS_SUCCESS
@@ -197,5 +204,4 @@ func printNode(root core.INode, blk int) {
 		}
 		return
 	}
-
 }

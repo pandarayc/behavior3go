@@ -7,8 +7,8 @@ import "fmt"
 type Tick struct {
 	tree       IBTree
 	debug      interface{}
-	target     interface{}
-	blackBoard *BlackBoard
+	target     interface{} // 目标对象,方便直接读取修改数据
+	blackBoard *BlackBoard // 黑板对象,用于记录节点状态
 	_openNodes []INode
 	_nodeCount int32
 }
@@ -17,8 +17,20 @@ func NewTick() *Tick {
 	return &Tick{}
 }
 
+func (t *Tick) SetTarget(target interface{}) {
+	t.target = target
+}
+
+func (t *Tick) GetTarget() interface{} {
+	return t.target
+}
+
 func (t *Tick) SetBlackBoard(blackBoard *BlackBoard) {
 	t.blackBoard = blackBoard
+}
+
+func (t *Tick) GetBlackBoard() IBlackBoard {
+	return t.blackBoard
 }
 
 func (t *Tick) SetTree(tree IBTree) {
@@ -27,10 +39,6 @@ func (t *Tick) SetTree(tree IBTree) {
 
 func (t *Tick) GetTree() IBTree {
 	return t.tree
-}
-
-func (t *Tick) GetBlackBoard() IBlackBoard {
-	return t.blackBoard
 }
 
 // GetMemory 获取当前树对应节点的黑板信息

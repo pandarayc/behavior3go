@@ -18,8 +18,12 @@ func NewRegisterHandlers() *RegisterHandlers {
 }
 
 // Add 添加对应管理方法
-func (h RegisterHandlers) Add(name string, node INode) {
+func (h RegisterHandlers) Add(name string, node INode) error {
+	if _, ok := h.handlers[name]; ok {
+		return fmt.Errorf("node %s already registered", name)
+	}
 	h.handlers[name] = reflect.TypeOf(node).Elem()
+	return nil
 }
 
 func (h RegisterHandlers) New(name string) (INode, error) {
