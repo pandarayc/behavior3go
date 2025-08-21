@@ -5,6 +5,12 @@
 
 内部方法按照旧模式 _protect 
 
+## 可用编辑器
+
+https://github.com/zhandouxiaojiji/behavior3editor
+
+https://www.behaviortrees.com/
+
 ## 参考
 
 https://github.com/magicsea/behavior3go
