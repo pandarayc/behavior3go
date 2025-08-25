@@ -1,38 +1,34 @@
 package behavior3go
 
 import (
-	"github.com/pandarayc/behavior3go/actions"
-	"github.com/pandarayc/behavior3go/composites"
-	"github.com/pandarayc/behavior3go/core"
-	"github.com/pandarayc/behavior3go/decorators"
 )
 
-var defaultRegisterHandlers *core.RegisterHandlers
+var defaultRegisterHandlers *RegisterHandlers
 
-func GetDefaultRegisterHandlers() *core.RegisterHandlers {
+func GetDefaultRegisterHandlers() *RegisterHandlers {
 	if defaultRegisterHandlers == nil {
-		handlers := core.NewRegisterHandlers()
+		handlers := NewRegisterHandlers()
 
 		// actions
-		handlers.Add("Error", &actions.Error{})
-		handlers.Add("Failer", &actions.Failer{})
-		handlers.Add("Runner", &actions.Runner{})
-		handlers.Add("Succeeder", &actions.Succeeder{})
-		handlers.Add("Wait", &actions.Wait{})
+		handlers.Add("Error", &Error{})
+		handlers.Add("Failer", &Failer{})
+		handlers.Add("Runner", &Runner{})
+		handlers.Add("Succeeder", &Succeeder{})
+		handlers.Add("Wait", &Wait{})
 
 		// composites
-		handlers.Add("Sequence", &composites.Sequence{})
-		handlers.Add("MemSequence", &composites.MemSequence{})
-		handlers.Add("Priority", &composites.Priority{})
-		handlers.Add("MemPriority", &composites.MemPriority{})
+		handlers.Add("Sequence", &Sequence{})
+		handlers.Add("MemSequence", &MemSequence{})
+		handlers.Add("Priority", &Priority{})
+		handlers.Add("MemPriority", &MemPriority{})
 
 		// decorators
-		handlers.Add("Inverter", &decorators.Inverter{})
-		handlers.Add("Limiter", &decorators.Limiter{})
-		handlers.Add("MaxTime", &decorators.MaxTime{})
-		handlers.Add("Repeater", &decorators.Repeater{})
-		handlers.Add("RepeatUntilFailure", &decorators.RepeatUntilFailure{})
-		handlers.Add("RepeatUntilSuccess", &decorators.RepeatUntilSuccess{})
+		handlers.Add("Inverter", &Inverter{})
+		handlers.Add("Limiter", &Limiter{})
+		handlers.Add("MaxTime", &MaxTime{})
+		handlers.Add("Repeater", &Repeater{})
+		handlers.Add("RepeatUntilFailure", &RepeatUntilFailure{})
+		handlers.Add("RepeatUntilSuccess", &RepeatUntilSuccess{})
 
 		defaultRegisterHandlers = handlers
 	}

@@ -7,8 +7,6 @@
 
 ## 可用编辑器
 
-https://github.com/zhandouxiaojiji/behavior3editor
-
 https://www.behaviortrees.com/
 
 ## 参考

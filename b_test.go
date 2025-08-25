@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/pandarayc/behavior3go/core"
 )
 
 func TestXxx(t *testing.T) {
@@ -31,6 +30,6 @@ func TestNewNode(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	node.SetWorker(node.(core.IWorker))
+	node.SetWorker(node.(IWorker))
 	_ = node
 }

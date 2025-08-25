@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/pandarayc/behavior3go/config"
-	"github.com/pandarayc/behavior3go/core"
 )
 
 // 配置以项目级别维护
@@ -15,27 +14,27 @@ type B3 struct {
 	projectCfg *config.B3ProjectCfg
 
 	// Node registries
-	customNodes *core.CustomNodes
-	trees       map[string]*core.BehaviorTree
+	customNodes *CustomNodes
+	trees       map[string]*BehaviorTree
 	// 通用方法表
-	defaultHandlers *core.RegisterHandlers
+	defaultHandlers *RegisterHandlers
 	// 自定义方法表
-	customHandlers *core.RegisterHandlers
-	root           core.IBTree
+	customHandlers *RegisterHandlers
+	root           IBTree
 }
 
 // New creates a new behavior tree manager
 func New() *B3 {
 	mgr := &B3{
-		customNodes: &core.CustomNodes{},
-		trees:       make(map[string]*core.BehaviorTree),
+		customNodes: &CustomNodes{},
+		trees:       make(map[string]*BehaviorTree),
 	}
 	mgr.defaultHandlers = GetDefaultRegisterHandlers()
-	mgr.customHandlers = core.NewRegisterHandlers()
+	mgr.customHandlers = NewRegisterHandlers()
 	return mgr
 }
 
-func (mgr *B3) RegisterCustomFunc(name string, node core.INode) error {
+func (mgr *B3) RegisterCustomFunc(name string, node INode) error {
 	// 检查是否已经注册
 	if err := mgr.customHandlers.Add(name, node); err != nil {
 		return err
@@ -65,17 +64,17 @@ func (mgr *B3) Load() error {
 	}
 
 	// 节点实例化
-	nodes := make(map[string]core.INode)
+	nodes := make(map[string]INode)
 	for _, treeCfg := range mgr.projectCfg.Trees {
 		for _, nodeCfg := range treeCfg.Nodes {
 			// 构建叶子节点
-			var node core.INode
+			var node INode
 
 			name := nodeCfg.GetName()
 
 			// uid命名通常为树节点
 			if len(name) >= 36 {
-				node = &core.TreeNode{}
+				node = &TreeNode{}
 			} else {
 				// 检查自定义表
 				if tnode, err := mgr.customHandlers.New(name); err == nil {
@@ -92,11 +91,11 @@ func (mgr *B3) Load() error {
 			}
 			node.Initialize(nodeCfg)
 			node.Ctor()
-			node.SetWorker(node.(core.IWorker))
+			node.SetWorker(node.(IWorker))
 			nodes[nodeCfg.GetId()] = node
 		}
 		// 构建树根节点
-		treeNode := core.NewBehaviorTree()
+		treeNode := NewBehaviorTree()
 		treeNode.Initialize(&treeCfg.NodeCfg)
 		treeNode.Ctor()
 		nodes[treeCfg.GetId()] = treeNode
@@ -107,48 +106,49 @@ func (mgr *B3) Load() error {
 		for _, nodeCfg := range treeCfg.Nodes {
 			node := nodes[nodeCfg.Id]
 			switch node.GetCategory() {
-			case core.CATEGORY_TREE_NODE:
-				treeNode := node.(core.ITreeNode)
+			case CATEGORY_TREE_NODE:
+				treeNode := node.(ITreeNode)
 				if nodeCfg.Name != "" {
 					treeNode.SetChild(nodes[nodeCfg.Name])
 				}
-			case core.CATEGORY_COMPOSITE:
-				compositeNode := node.(core.IComposite)
+			case CATEGORY_COMPOSITE:
+				compositeNode := node.(IComposite)
 				for _, childId := range nodeCfg.Children {
 					childNode := nodes[childId]
 					compositeNode.AddChild(childNode)
 				}
-			case core.CATEGORY_DECORATOR:
+			case CATEGORY_DECORATOR:
 				if nodeCfg.Child != "" {
-					decoratorNode := node.(core.IDecorator)
+					decoratorNode := node.(IDecorator)
 					decoratorNode.SetChild(nodes[nodeCfg.Child])
 				}
 			}
 		}
-		treeNode := nodes[treeCfg.Id].(core.IBTree)
+		treeNode := nodes[treeCfg.Id].(IBTree)
 		treeNode.SetRoot(nodes[treeCfg.Root])
 	}
 
-	mgr.root = nodes[mgr.projectCfg.SelectedTree].(core.IBTree)
+	mgr.root = nodes[mgr.projectCfg.SelectedTree].(IBTree)
 
 	return nil
 }
 
 // Tick 执行树的遍历
-func (mgr *B3) Tick(target interface{}, blackboard *core.BlackBoard) core.NodeStatus {
+func (mgr *B3) Tick(target interface{}, blackboard *BlackBoard) NodeStatus {
 	if target == nil {
 		fmt.Println("target not initialized")
-		return core.STATUS_ERROR
+		return STATUS_ERROR
 	}
 	if blackboard == nil {
 		fmt.Println("blackboard not initialized")
-		return core.STATUS_ERROR
+		return STATUS_ERROR
 	}
 	if mgr.root == nil {
-		return core.STATUS_ERROR
+		fmt.Println("root not initialized")
+		return STATUS_ERROR
 	}
 
-	tick := core.NewTick()
+	tick := NewTick()
 	tick.SetBlackBoard(blackboard)
 	tick.SetTree(mgr.root)
 	tick.SetTarget(target)
@@ -168,7 +168,7 @@ func (mgr *B3) DumpTree() {
 	printNode(mgr.root, 0)
 }
 
-func printNode(root core.INode, blk int) {
+func printNode(root INode, blk int) {
 
 	//fmt.Println("new node:", root.Name, " children:", len(root.Children), " child:", root.Child)
 	for i := 0; i < blk; i++ {
@@ -178,15 +178,15 @@ func printNode(root core.INode, blk int) {
 	//fmt.Println("|—<", root.Name, ">") //打印"|—<id>"形式
 	fmt.Print("|—", root.GetTitle())
 
-	if root.GetCategory() == core.CATEGORY_TREE {
+	if root.GetCategory() == CATEGORY_TREE {
 		fmt.Println("")
-		tree := root.(core.IBTree)
+		tree := root.(IBTree)
 		printNode(tree.GetRoot(), blk+3)
 		return
 	}
 
-	if root.GetCategory() == core.CATEGORY_DECORATOR {
-		dec := root.(core.IDecorator)
+	if root.GetCategory() == CATEGORY_DECORATOR {
+		dec := root.(IDecorator)
 		if dec.GetChild() != nil {
 			//fmt.Print("=>")
 			printNode(dec.GetChild(), blk+3)
@@ -195,8 +195,8 @@ func printNode(root core.INode, blk int) {
 	}
 
 	fmt.Println("")
-	if root.GetCategory() == core.CATEGORY_COMPOSITE {
-		comp := root.(core.IComposite)
+	if root.GetCategory() == CATEGORY_COMPOSITE {
+		comp := root.(IComposite)
 		if comp.GetChildrenCount() > 0 {
 			for i := 0; i < comp.GetChildrenCount(); i++ {
 				printNode(comp.GetChild(i), blk+3)
